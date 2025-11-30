@@ -102,10 +102,14 @@ void readAllFiles(const string& path, unordered_map<string, int>& lexicon) {
             cout << "Skipping unsupported file: " << path << endl;
     }
 }
+int main(int argc, char* argv[]) {
+    if (argc < 2) {
+        std::cout << "Usage: build_lexicon <folder_or_file_path>\n";
+        return 1;
+    }
 
-int main() {
-    // <-- Hardcode your folder or file path here
-    string path = "C:\\Users\\umarm\\Desktop\\DSA ESP3\\all_sources_metadata_2020-03-13.csv"; 
+    
+    std::string path = argv[1];
 
     unordered_map<string, int> lexicon;
 
@@ -116,28 +120,23 @@ int main() {
     cout << "\nFinished! Total unique words in lexicon: " << lexicon.size() << "\n";
 
     // -------------------- Save Lexicon JSON --------------------
+    json lexJson;
+    lexJson["lexicon"] = json::array();
 
-json lexJson;
-lexJson["lexicon"] = json::array();
+    // only export words (not counts)
+    for (auto& p : lexicon)
+        lexJson["lexicon"].push_back(p.first);
 
-// only export words (not counts)
-for (auto& p : lexicon)
-    lexJson["lexicon"].push_back(p.first);
+    // write lexicon.json file
+    std::ofstream out("lexicon.json");
+    out << lexJson.dump(4);
+    out.close();
 
-// write lexicon.json file
-std::ofstream out("lexicon.json");
-out << lexJson.dump(4);
-out.close();
+    cout << "\n✓ Lexicon saved to lexicon.json\n";
 
-cout << "\n✓ Lexicon saved to lexicon.json\n";
-
-    // Print first 20 words as a sanity check
-    int count = 0;
-    for (auto &p : lexicon) {
-        cout << p.first << " : " << p.second << endl;
-        if (++count == 10) break;
-    }
+   
 
     return 0;
 }
+
 

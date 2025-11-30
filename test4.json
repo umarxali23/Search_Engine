@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "title": "COVID Transmission Study",
+    "authors": [
+      {"first": "Alan", "last": "Turing"},
+      {"first": "Grace", "last": "Hopper"}
+    ]
+  },
+  "abstract": [
+    {"text": "This paper studies virus spread in communities."}
+  ],
+  "body_text": [
+    {"text": "Transmission rates depend on population density."},
+    {"text": "Viral load is a key factor."}
+  ]
+}
